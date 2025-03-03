@@ -6,9 +6,11 @@ import mz.gov.bau.libraryApi.book.domain.mapper.BookMapper;
 import mz.gov.bau.libraryApi.book.domain.model.Book;
 import mz.gov.bau.libraryApi.book.domain.query.BookQuery;
 import mz.gov.bau.libraryApi.book.presistence.BookRepository;
+import mz.gov.bau.libraryApi.config.exception.ResponseException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,5 +29,11 @@ public class BookServiceImpl implements BookService {
     public Page<Book> findAll(BookQuery query, Pageable pageable, boolean unpaged) {
         return !unpaged ? bookSpecification.executeQuery(query, pageable)
                 : new PageImpl<>(bookSpecification.executeQuery(query));
+    }
+
+    @Override
+    public Book findById(Long id) {
+        return repository.findById(id).orElseThrow(
+                () -> new ResponseException("book/not-found", HttpStatus.NOT_FOUND));
     }
 }
