@@ -36,4 +36,9 @@ public class BookController {
         return ResponseEntity.ok(BookMapper.INSTANCE.toJson(service.findById(id)));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<BookJson> updateBook(@PathVariable("id") Long id, @RequestBody @Valid BookCommand bookCommand) {
+        return ResponseEntity.ok(BookMapper.INSTANCE.toJson(service.update(id, bookCommand)));
+    }
+
 }

@@ -10,4 +10,5 @@ public interface BookService {
     Book save(BookCommand bookCommand);
     Page<Book> findAll(BookQuery query, Pageable pageable, boolean unpaged);
     Book findById(Long id);
+    Book update(Long id, BookCommand bookCommand);
 }

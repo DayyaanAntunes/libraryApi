@@ -36,4 +36,11 @@ public class BookServiceImpl implements BookService {
         return repository.findById(id).orElseThrow(
                 () -> new ResponseException("book/not-found", HttpStatus.NOT_FOUND));
     }
+
+    @Override
+    public Book update(Long id, BookCommand bookCommand) {
+        Book book = findById(id);
+        BookMapper.INSTANCE.toModel(bookCommand, book);
+        return repository.save(book);
+    }
 }
