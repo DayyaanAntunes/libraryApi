@@ -8,18 +8,17 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
-import java.lang.annotation.Target;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-public abstract class UserMapper {
-    public static final UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+public interface UserMapper {
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    public abstract UserJson toJson(User user);
-    public abstract User toModel(UserCommand userCommand);
-    public abstract void toModel(UserCommand userCommand, @MappingTarget User user);
-    public List<UserJson> toJson(List<User> users) {
+    UserJson toJson(User user);
+    User toModel(UserCommand userCommand);
+    void toModel(UserCommand userCommand, @MappingTarget User user);
+    default List<UserJson> toJson(List<User> users) {
         return users.stream().map(this::toJson).collect(Collectors.toList());
     }
 }
