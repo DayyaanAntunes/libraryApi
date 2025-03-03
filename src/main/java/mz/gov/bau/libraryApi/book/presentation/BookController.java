@@ -41,4 +41,10 @@ public class BookController {
         return ResponseEntity.ok(BookMapper.INSTANCE.toJson(service.update(id, bookCommand)));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable("id") Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

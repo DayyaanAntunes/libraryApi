@@ -11,4 +11,5 @@ public interface BookService {
     Page<Book> findAll(BookQuery query, Pageable pageable, boolean unpaged);
     Book findById(Long id);
     Book update(Long id, BookCommand bookCommand);
+    void delete(Long id);
 }

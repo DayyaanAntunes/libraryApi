@@ -43,4 +43,10 @@ public class BookServiceImpl implements BookService {
         BookMapper.INSTANCE.toModel(bookCommand, book);
         return repository.save(book);
     }
+
+    @Override
+    public void delete(Long id) {
+        if (!repository.existsById(id)) throw new ResponseException("book/not-found", HttpStatus.NOT_FOUND);
+        repository.deleteById(id);
+    }
 }
