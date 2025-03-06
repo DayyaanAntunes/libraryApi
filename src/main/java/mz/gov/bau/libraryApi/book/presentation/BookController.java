@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("api/books")
 @RequiredArgsConstructor
 public class BookController {
     private final BookService service;

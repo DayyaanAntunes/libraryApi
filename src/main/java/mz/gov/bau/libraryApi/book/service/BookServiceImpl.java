@@ -2,6 +2,7 @@ package mz.gov.bau.libraryApi.book.service;
 
 import lombok.RequiredArgsConstructor;
 import mz.gov.bau.libraryApi.book.domain.command.BookCommand;
+import mz.gov.bau.libraryApi.book.domain.enums.Status;
 import mz.gov.bau.libraryApi.book.domain.mapper.BookMapper;
 import mz.gov.bau.libraryApi.book.domain.model.Book;
 import mz.gov.bau.libraryApi.book.domain.query.BookQuery;
@@ -22,6 +23,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book save(BookCommand bookCommand) {
         Book book = BookMapper.INSTANCE.toModel(bookCommand);
+        book.setStatus(Status.AVAILABLE);
         return repository.save(book);
     }
 
