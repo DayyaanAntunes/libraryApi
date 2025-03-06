@@ -6,9 +6,10 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
+    open-in-view: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
 
   springdoc:
@@ -17,3 +18,14 @@ spring:
     swagger-ui:
       path: /swagger-ui.html
       operations-sorter: method
+
+  devtools:
+    livereload:
+      enabled: true
+
+  thymeleaf:
+    cache: false
+
+  flyway:
+    clean-on-validation-error: false
+    locations: classpath:db/migration
