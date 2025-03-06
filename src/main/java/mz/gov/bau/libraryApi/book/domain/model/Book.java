@@ -7,6 +7,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "books")
@@ -19,16 +20,11 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
     private String author;
-    @Column(nullable = false)
-    private Integer year;
-    private Integer pages;
-    @Column(nullable = false)
-    private Double price;
-    @Column(nullable = false)
+    private Integer publishYear;
+    private Integer pageNumber;
+    private BigDecimal price;
     @Enumerated(EnumType.STRING)
     private Status status;
     private boolean isDeleted;
