@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
     public User save(UserCommand userCommand) {
         User user = UserMapper.INSTANCE.toModel(userCommand);
 
-        if (repository.existsByEmail(userCommand.getEmail()))
+        if (repository.existsByEmailIgnoreStatus(userCommand.getEmail()))
             throw new ResponseException("user/already-exists", HttpStatus.CONFLICT);
 
         return repository.save(user);
