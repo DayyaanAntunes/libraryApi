@@ -1,0 +1,12 @@
+ALTER TABLE users
+    ADD COLUMN created_at TIMESTAMP DEFAULT NOW(),
+    ADD COLUMN updated_at TIMESTAMP,
+    ADD COLUMN deleted_at TIMESTAMP;
+
+ALTER TABLE books
+    ADD COLUMN created_at TIMESTAMP DEFAULT NOW(),
+    ADD COLUMN updated_at TIMESTAMP,
+    ADD COLUMN deleted_at TIMESTAMP;
+
+ALTER TABLE users DROP COLUMN is_deleted;
+ALTER TABLE books DROP COLUMN is_deleted;

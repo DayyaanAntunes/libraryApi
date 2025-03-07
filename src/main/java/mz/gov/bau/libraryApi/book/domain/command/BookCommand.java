@@ -13,10 +13,10 @@ public class BookCommand {
     @NotBlank(message = "book/missing-args")
     private String author;
     @NotNull(message = "book/missing-args")
-    private Integer year;
+    private Integer publishYear;
     @NotNull(message = "book/missing-args")
     @Min(1)
-    private Integer pages;
+    private Integer pageNumber;
     @NotNull(message = "book/missing-args")
     @DecimalMin(value = "1.0", message = "book/invalid-price")
     private Double price;
@@ -24,7 +24,7 @@ public class BookCommand {
     @JsonIgnore
     @AssertTrue(message = "book/missing-args")
     public boolean isYearValid() {
-        return year != null && year <= Year.now().getValue() && year >= 1;
+        return publishYear != null && publishYear <= Year.now().getValue() && publishYear >= 1;
     }
 
 }
