@@ -14,7 +14,7 @@ public class UserCommand {
     @NotBlank(message = "user/missing-args")
     private String name;
     @NotBlank(message = "user/missing-args")
-    @Email(message = "user/invalid")
+    @Email(message = "user/invalid-email")
     private String email;
     @NotBlank(message = "user/missing-args")
     private String password;
