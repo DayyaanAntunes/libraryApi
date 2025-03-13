@@ -3,6 +3,7 @@ package mz.gov.bau.libraryApi.loan.presentation;
 import lombok.RequiredArgsConstructor;
 import mz.gov.bau.libraryApi.loan.domain.LoanQuery;
 import mz.gov.bau.libraryApi.loan.domain.command.LoanCommand;
+import mz.gov.bau.libraryApi.loan.domain.command.UpdateDevolutionDateCommand;
 import mz.gov.bau.libraryApi.loan.domain.mapper.LoanMapper;
 import mz.gov.bau.libraryApi.loan.service.LoanService;
 import org.springframework.data.domain.Page;
@@ -32,4 +33,8 @@ public class LoanController {
         return ResponseEntity.status(HttpStatus.CREATED).body(LoanMapper.INSTANCE.toJson(service.save(loanCommand)));
     }
 
+    @PatchMapping
+    public ResponseEntity<LoanJson> update(@RequestBody @Valid UpdateDevolutionDateCommand updateDevolutionDateCommand) {
+        return ResponseEntity.ok(LoanMapper.INSTANCE.toJson(service.updateDevolutionDate(updateDevolutionDateCommand)));
+    }
 }

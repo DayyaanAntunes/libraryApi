@@ -6,6 +6,7 @@ import mz.gov.bau.libraryApi.book.service.BookService;
 import mz.gov.bau.libraryApi.config.exception.ResponseException;
 import mz.gov.bau.libraryApi.loan.domain.LoanQuery;
 import mz.gov.bau.libraryApi.loan.domain.command.LoanCommand;
+import mz.gov.bau.libraryApi.loan.domain.command.UpdateDevolutionDateCommand;
 import mz.gov.bau.libraryApi.loan.domain.enums.LoanStatus;
 import mz.gov.bau.libraryApi.loan.domain.mapper.LoanMapper;
 import mz.gov.bau.libraryApi.loan.domain.model.Loan;
@@ -43,5 +44,26 @@ public class LoanServiceImpl implements LoanService {
         loan.setLoanStatus(LoanStatus.ACTIVE);
         loan.setLoanedAt(LocalDateTime.now());
         return repository.save(loan);
+    }
+
+    @Override
+    public Loan updateDevolutionDate(UpdateDevolutionDateCommand updateDevolutionDateCommand) {
+        Loan loan = findById(updateDevolutionDateCommand.getLoanId());
+        LocalDateTime returnedAt = LocalDateTime.now();
+        loan.setReturnedAt(returnedAt);
+        if (returnedAt.isAfter(loan.getDueAt())) {
+            //emailService.sendEmail(notificationCommand);
+            loan.setLoanStatus(LoanStatus.OVERDUE);
+        log.info("Devolution is over the due date");
+        } else {
+            loan.setLoanStatus(LoanStatus.RETURNED);
+        } return repository.save(loan);
+    }
+
+    @Override
+    public Loan findById(Long id) {
+        return repository.findById(id).orElseThrow(
+                () -> new ResponseException("loan/not-found", HttpStatus.NOT_FOUND)
+        );
     }
 }
